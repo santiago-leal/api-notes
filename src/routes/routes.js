@@ -13,6 +13,10 @@ const {
 } = require('../controllers/note-controller');
 
 const routes = (app, validate_token) => {
+    // Initial Route
+    app.get('/', (req, res) => {
+        res.send({message: "connected"});
+    });
     // Route Login
     app.post('/login', login_controller)
     // Routes Users
