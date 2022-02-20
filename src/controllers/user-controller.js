@@ -8,9 +8,16 @@ const {
     update_user_service
 } = require('../services/user-service');
 
-const login_controller = (req, res) => {
-    let { user_name, password } = req.body;
-    if(user_name == 'santiago' && password == '123456') {
+const register_user_controller = async (req, res) => {
+    const user = await create_user_service(req.body);
+    res.send({message: 'Usuario registrado exitosamente'});
+}
+
+const login_controller = async (req, res) => {
+    let { email, user_name, password} = req.body;
+    let user = await get_user_service(email);
+    console.log(user);
+    if(user) {
         const payload = {
             check: true
         };
@@ -47,6 +54,7 @@ const update_user_controller = async (req, res) => {
 
 module.exports = {
     login_controller,
+    register_user_controller,
     get_user_controller,
     create_user_controller,
     update_user_controller
