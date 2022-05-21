@@ -26,7 +26,7 @@ const login_controller = async (req, res) => {
             expiresIn: 1445
         });
         res.json({
-            message: 'Autenticación correcta',
+            message: 'Autenticación correctas',
             token
         })
     } else {
