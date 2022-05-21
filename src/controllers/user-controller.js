@@ -23,7 +23,7 @@ const login_controller = async (req, res) => {
         };
 
         const token = jwt.sign(payload, process.env.KEY, {
-            expiresIn: 1440
+            expiresIn: 1445
         });
         res.json({
             message: 'Autenticación correcta',
