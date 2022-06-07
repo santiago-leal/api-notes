@@ -2,7 +2,6 @@ const {
     login_controller,
     register_user_controller,
     get_user_controller,
-    create_user_controller,
     update_user_controller
 } = require('../controllers/user-controller');
 
@@ -18,12 +17,12 @@ const routes = (app, validate_token) => {
     app.get('/', (req, res) => {
         res.send({message: "connected"});
     });
-    // Route and Register
+    // Login and Register
     app.post('/login', login_controller);
     app.post('/register', register_user_controller);
+    
     // Routes Users
     app.get('/user', validate_token, get_user_controller);
-    app.post('/user', validate_token, create_user_controller);
     app.put('/user', validate_token, update_user_controller)
     // Routes Notes
     app.get('/note/:id', validate_token, get_note_controller);
