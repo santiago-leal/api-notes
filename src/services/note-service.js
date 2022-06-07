@@ -9,9 +9,9 @@ const get_note_service = async (id) => {
     }
 }
 
-const get_notes_service = async () => {
+const get_notes_service = async (user_id) => {
     try {
-        const notes = await Notes_model.find().lean();
+        const notes = await Notes_model.find({user_id: user_id})
         return notes;
     } catch (error) {
         return {

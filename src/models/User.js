@@ -5,8 +5,8 @@ const saltRounds = 10;
 const user_schema = new Schema({
     user_name: {
         type: String,
-        required: true,
         unique: true,
+        required: true,
         trim: true,
     },
     email: {
