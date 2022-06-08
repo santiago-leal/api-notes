@@ -10,7 +10,6 @@ const {
 
 const register_user_controller = async (req, res) => {
     const user = await create_user_service(req.body);
-    console.log(user);
     res.send(user);
 }
 

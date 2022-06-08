@@ -22,13 +22,13 @@ const routes = (app, validate_token) => {
     app.post('/register', register_user_controller);
     
     // Routes Users
-    app.get('/user', validate_token, get_user_controller);
-    app.put('/user', validate_token, update_user_controller)
+    app.get('/user', /*validate_token,*/ get_user_controller);
+    app.put('/user', /*validate_token,*/ update_user_controller)
     // Routes Notes
-    app.get('/note/:id', validate_token, get_note_controller);
-    app.get('/note', validate_token, get_notes_controller);
-    app.post('/note', validate_token, create_note_controller);
-    app.put('/note/:id', validate_token, update_task_controller);
+    app.get('/note/:id', /*validate_token,*/ get_note_controller);
+    app.get('/note', /*validate_token,*/ get_notes_controller);
+    app.post('/note', /*validate_token,*/ create_note_controller);
+    app.put('/note/:id', /*validate_token,*/ update_task_controller);
 }
 
 module.exports = routes;

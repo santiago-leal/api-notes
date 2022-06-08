@@ -9,7 +9,6 @@ const { get_user_service } = require('../services/user-service');
 
 const get_note_controller = async (req, res) => {
     let { id } = req.params;
-    console.log(id);
     const note = await get_note_service(id) || {note: "Note does exist"};
     res.send(note);
 }
