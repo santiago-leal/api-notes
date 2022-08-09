@@ -11,8 +11,9 @@ const app = express();
 // Middleware
 app.use(body_parser.urlencoded({ extended: false }));
 app.use(body_parser.json())
+app.use(validate_token)
 
-routes(app, validate_token);
+routes(app);
 
 app.listen(process.env.PORT, () => {
     console.log(`Example app listening at http://localhost:${process.env.PORT}`)

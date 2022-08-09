@@ -12,7 +12,7 @@ const {
     update_task_controller
 } = require('../controllers/note-controller');
 
-const routes = (app, validate_token) => {
+const routes = (app) => {
     // Initial Route
     app.get('/', (req, res) => {
         res.send({message: "connected"});
@@ -22,13 +22,13 @@ const routes = (app, validate_token) => {
     app.post('/register', register_user_controller);
     
     // Routes Users
-    app.get('/user', /*validate_token,*/ get_user_controller);
-    app.put('/user', /*validate_token,*/ update_user_controller)
+    app.get('/user', get_user_controller);
+    app.put('/user', update_user_controller)
     // Routes Notes
-    app.get('/note/:id', /*validate_token,*/ get_note_controller);
-    app.get('/note', /*validate_token,*/ get_notes_controller);
-    app.post('/note', /*validate_token,*/ create_note_controller);
-    app.put('/note/:id', /*validate_token,*/ update_task_controller);
+    app.get('/note/:id', get_note_controller);
+    app.get('/note', get_notes_controller);
+    app.post('/note', create_note_controller);
+    app.put('/note/:id', update_task_controller);
 }
 
 module.exports = routes;
