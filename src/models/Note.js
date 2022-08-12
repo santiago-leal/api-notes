@@ -18,7 +18,10 @@ const note_schema = new Schema({
         required: true,
         trim: true,
     },
-    url_image: String,
+    image: {
+        open_id: String,
+        url: String,
+    }
 }, {
     timestamps: true,
     versionKey: false,
