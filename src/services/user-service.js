@@ -21,7 +21,7 @@ const create_user_service = async (data) => {
 
 const update_user_service = async (id, data) => {
     try {
-        const user = Users_model.updateOne({_id: id}, data);
+        const user = Users_model.findByIdAndUpdate({_id: id}, data);
         return user;
     } catch (error) {
         return {message: error.message};

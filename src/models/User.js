@@ -6,18 +6,18 @@ const user_schema = new Schema({
     user_name: {
         type: String,
         unique: true,
-        required: true,
+        required: [true, "El nombre de usuario es requerido"],
         trim: true,
     },
     email: {
         type: String,
         unique: true,
-        required: true,
+        required: [true, "El correo es requerido"],
         trim: true,
     },
     password: {
         type: String,
-        required: true,
+        required: [true, "La contraseña es requerida"],
         trim: true,
     },
 }, {
@@ -25,21 +25,10 @@ const user_schema = new Schema({
     versionKey: false,
 });
 
-// user_schema.pre('save', function(next) {
-//     if (this.isNew || this.isModified('password')) {
-//         const document = this;
-//         bcrypt.hash(document.password, saltRounds, (err, hashedPassword) => {
-//             if (err){
-//                 next(err);
-//             } else {
-//                 document.password = hashedPassword;
-//                 next();
-//             }
-//         });
-
-//     } else {
-//         next();
-//     }
-// });
+user_schema.methods.toJSON = function () {
+    const user = this.toObject();
+    delete user.password;
+    return user;
+}
 
 module.exports = model('User', user_schema);
