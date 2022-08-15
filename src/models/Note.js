@@ -19,7 +19,7 @@ const note_schema = new Schema({
         trim: true,
     },
     image: {
-        open_id: String,
+        public_id: String,
         url: String,
     }
 }, {
