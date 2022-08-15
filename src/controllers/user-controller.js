@@ -10,7 +10,7 @@ const {
 
 const register_user_controller = async (req, res) => {
     const user = await create_user_service(req.body);
-    res.send(user);
+    res.json(user);
 }
 
 const login_controller = async (req, res) => {
@@ -23,7 +23,7 @@ const login_controller = async (req, res) => {
             };
     
             const token = jwt.sign(payload, process.env.KEY, {
-                expiresIn: 1445
+                expiresIn: process.env.EXPIRATION_TOKEN
             });
             res.json({
                 message: 'Autenticación correcta',
@@ -41,13 +41,13 @@ const update_user_controller = async (req, res) => {
     let { email } = req.body;
     const user = await get_user_service(email);
     const user_update = await update_user_service(user._id, req.body);
-    res.send(user_update)
+    res.json(user_update)
 }
 
 const get_user_controller = async (req, res) => {
     let { email } = req.query;
     const user = await get_user_service(email);
-    res.send(user);
+    res.json(user);
 }
 
 module.exports = {

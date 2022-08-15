@@ -15,7 +15,7 @@ validate_token.use((req, res, next) => {
             }
         });
     } else {
-        res.send({
+        res.json({
             message: 'Token is required'
         })
     }

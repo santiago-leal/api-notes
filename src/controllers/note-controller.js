@@ -12,17 +12,17 @@ const {
 const get_note_controller = async (req, res) => {
     let { id } = req.params;
     const note = await get_note_service(id) || {note: "Note does exist"};
-    res.send(note);
+    res.json(note);
 }
 
 const get_notes_controller = async (req, res) => {
     console.log(req.body.email);
     const user_info = await get_user_service(req.body.email);
     if (!user_info) {
-        res.send({"message": "User does not exist"});
+        res.json({"message": "User does not exist"});
     } else {
         const notes = await get_notes_service(user_info._id);
-        res.send(notes);
+        res.json(notes);
     }
 }
 
@@ -72,7 +72,7 @@ const delete_note_controller = async (req, res) => {
         await deleteImage(note.image.public_id);
     }
     const note_delete = await delete_note_service(id) || {message: "Note does not exist"};
-    res.send(note_delete);
+    res.json(note_delete);
 }
 
 module.exports = {
