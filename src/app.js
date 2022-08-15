@@ -2,6 +2,7 @@ require('dotenv').config()
 require('./utils/database')
 
 const express = require('express');
+const routes = require('./routes/routes');
 const notes_routes = require('./routes/notes-routes');
 const user_routes = require('./routes/users-routes');
 const fileUpload = require('express-fileupload');
@@ -9,19 +10,15 @@ const validate_token = require('./middleware/middleware');
 
 const app = express();
 
-// Initial route
-app.get("/", (req, res) => { 
-    res.send({message: "connected"});
-});
-
 // Middleware
 app.use(express.json())
 app.use(fileUpload({
     useTempFiles: true,
     tempFileDir: './src/uploads'
 }));
-// app.use(validate_token)
 
+routes(app);
+app.use(validate_token)
 notes_routes(app);
 user_routes(app);
 
