@@ -10,7 +10,7 @@ clodinary.config({
 async function uploadImage(file) {
     try {
         let result = await clodinary.v2.uploader.upload(file, {
-            folder: 'ascensor',
+            folder: 'ascensor-' + process.env.ENVIROMENT,
         });
         return result;
     } catch (error) {
