@@ -2,11 +2,13 @@ const Notes_model = require('../models/Note');
 
 const get_note_service = async (id) => {
     try {
-        console.log(id);
         const note = await Notes_model.findById(id);
         return note
     } catch (error) {
-        return error.message;
+        if (error.kind === 'ObjectId') {
+            return {message: 'Invalid id'};
+        }
+        return {message: error.message};
     }
 }
 
@@ -31,11 +33,15 @@ const create_note_service = async (data) => {
     }
 }
 
-const update_task_service = async (id, data) => {
+const update_note_service = async (id, data) => {
     try {
-        const note = Notes_model.updateOne({_id: id}, data);
+        const note = Notes_model.findByIdAndUpdate({_id: id}, data, {new: true});
         return note;
     } catch (error) {
+        console.log('holis-X2');
+        if (error.kind === 'ObjectId') {
+            return {message: 'Invalid id'};
+        }
         return {message: error.message};
     }
 }
@@ -53,6 +59,6 @@ module.exports = {
     get_note_service,
     get_notes_service,
     create_note_service,
-    update_task_service,
+    update_note_service,
     delete_note_service
 }
