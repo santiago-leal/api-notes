@@ -1,6 +1,7 @@
 require('dotenv').config()
 
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
 const { 
     get_user_service, 
@@ -9,6 +10,7 @@ const {
 } = require('../services/user-service');
 
 const register_user_controller = async (req, res) => {
+    req.body.password = bcrypt.hashSync(req.body.password, 10);
     const user = await create_user_service(req.body);
     res.json(user);
 }
@@ -17,7 +19,7 @@ const login_controller = async (req, res) => {
     let { email, password} = req.body;
     let user = await get_user_service(email);
     if(user) {
-        if (email == user.email && password==user.password) {
+        if (bcrypt.compareSync(password, user.password)) {
             const payload = {
                 check: true
             };
@@ -40,6 +42,7 @@ const login_controller = async (req, res) => {
 const update_user_controller = async (req, res) => {
     let { email } = req.body;
     const user = await get_user_service(email);
+    req.body.password = bcrypt.hashSync(req.body.password, 10);
     const user_update = await update_user_service(user._id, req.body);
     res.json(user_update)
 }

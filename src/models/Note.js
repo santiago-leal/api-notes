@@ -5,17 +5,17 @@ const note_schema = new Schema({
     user_id: {
         type: Schema.Types.ObjectId,
         ref: 'User',
-        required: true,
+        required: [true, "El usuario es requerido"],
         trim: true
     },
     title: {
         type: String,
-        required: true,
+        required: [true, "El titulo es requerido"],
         trim: true,
     },
     text_note: {
         type: String,
-        required: true,
+        required: [true, "El texto es requerido"],
         trim: true,
     },
     image: {
