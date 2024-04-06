@@ -38,7 +38,6 @@ const update_note_service = async (id, data) => {
         const note = Notes_model.findByIdAndUpdate({_id: id}, data, {new: true});
         return note;
     } catch (error) {
-        console.log('holis-X2');
         if (error.kind === 'ObjectId') {
             return {message: 'Invalid id'};
         }
