@@ -16,7 +16,6 @@ const get_note_controller = async (req, res) => {
 }
 
 const get_notes_controller = async (req, res) => {
-    console.log(req.body.email);
     const user_info = await get_user_service(req.body.email);
     if (!user_info) {
         res.json({"message": "User does not exist"});
