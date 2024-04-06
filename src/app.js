@@ -6,7 +6,7 @@ const routes = require('./routes/routes');
 const notes_routes = require('./routes/notes-routes');
 const user_routes = require('./routes/users-routes');
 const fileUpload = require('express-fileupload');
-const validate_token = require('./middleware/middleware');
+const validate_token = require('./middleware/validate-token');
 
 const app = express();
 
