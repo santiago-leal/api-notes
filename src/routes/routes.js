@@ -1,15 +1,16 @@
 const {
-  login_controller,
-  register_user_controller,
-} = require("../controllers/user-controller");
+  loginController,
+  registerUserController,
+} = require("../controllers/userController");
+const express = require("express");
 
-const routes = (app) => {
-  // Initial route
-  app.get("/", (req, res) => {
-    res.send({ message: "connected" });
-  });
-  app.post("/login", login_controller);
-  app.post("/register", register_user_controller);
-};
+const router = express.Router();
 
-module.exports = routes;
+// Initial route
+router.get("/", (req, res) => {
+  res.send({ message: "connected" });
+});
+router.post("/login", loginController);
+router.post("/register", registerUserController);
+
+module.exports = router;

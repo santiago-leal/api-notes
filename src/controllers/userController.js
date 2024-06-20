@@ -4,20 +4,20 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
 const {
-  get_user_service,
-  create_user_service,
-  update_user_service,
-} = require("../services/user-service");
+  getUserService,
+  createUserService,
+  updateUserService,
+} = require("../services/userService");
 
-const register_user_controller = async (req, res) => {
+const registerUserController = async (req, res) => {
   req.body.password = bcrypt.hashSync(req.body.password, 10);
-  const user = await create_user_service(req.body);
+  const user = await createUserService(req.body);
   res.json(user);
 };
 
-const login_controller = async (req, res) => {
+const loginController = async (req, res) => {
   let { email, password } = req.body;
-  let user = await get_user_service(email);
+  let user = await getUserService(email);
   if (user) {
     if (bcrypt.compareSync(password, user.password)) {
       const payload = {
@@ -39,23 +39,23 @@ const login_controller = async (req, res) => {
   }
 };
 
-const update_user_controller = async (req, res) => {
+const updateUserController = async (req, res) => {
   let { email } = req.body;
-  const user = await get_user_service(email);
+  const user = await getUserService(email);
   req.body.password = bcrypt.hashSync(req.body.password, 10);
-  const user_update = await update_user_service(user._id, req.body);
+  const user_update = await updateUserService(user._id, req.body);
   res.json(user_update);
 };
 
-const get_user_controller = async (req, res) => {
+const getUserController = async (req, res) => {
   let { email } = req.query;
-  const user = await get_user_service(email);
+  const user = await getUserService(email);
   res.json(user);
 };
 
 module.exports = {
-  login_controller,
-  register_user_controller,
-  get_user_controller,
-  update_user_controller,
+  loginController,
+  registerUserController,
+  getUserController,
+  updateUserController,
 };

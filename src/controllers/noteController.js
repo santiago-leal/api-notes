@@ -1,31 +1,31 @@
-const { get_user_service } = require("../services/user-service");
+const { getUserService } = require("../services/userService");
 const { uploadImage, deleteImage } = require("../utils/cloudinary");
 const fs = require("fs");
 const {
-  get_note_service,
-  get_notes_service,
-  create_note_service,
-  update_note_service,
-  delete_note_service,
-} = require("../services/note-service");
+  getNoteService,
+  getNotesService,
+  createNoteService,
+  updateNoteService,
+  deleteNoteService,
+} = require("../services/noteService");
 
-const get_note_controller = async (req, res) => {
+const getNoteController = async (req, res) => {
   let { id } = req.params;
-  const note = (await get_note_service(id)) || { note: "Note does exist" };
+  const note = (await getNoteService(id)) || { note: "Note does exist" };
   res.json(note);
 };
 
-const get_notes_controller = async (req, res) => {
-  const user_info = await get_user_service(req.body.email);
+const getNotesController = async (req, res) => {
+  const user_info = await getUserService(req.body.email);
   if (!user_info) {
     res.json({ message: "User does not exist" });
   } else {
-    const notes = await get_notes_service(user_info._id);
+    const notes = await getNotesService(user_info._id);
     res.json(notes);
   }
 };
 
-const create_notes_controller = async (req, res) => {
+const createNotesController = async (req, res) => {
   const { email } = req.body;
   if (!email) {
     res.status(400).json({ message: "Email is required" });
@@ -45,15 +45,15 @@ const create_notes_controller = async (req, res) => {
       };
       fs.unlinkSync(req.files.image.tempFilePath);
     }
-    const note = await create_note_service(data);
+    const note = await createNoteService(data);
     res.json(note);
   }
 };
 
-const update_notes_controller = async (req, res) => {
+const updateNotesController = async (req, res) => {
   try {
     let { id } = req.params;
-    const note = (await update_note_service(id, req.body)) || {
+    const note = (await updateNoteService(id, req.body)) || {
       message: "Note does not exist",
     };
     res.json(note);
@@ -66,24 +66,24 @@ const update_notes_controller = async (req, res) => {
   }
 };
 
-const delete_note_controller = async (req, res) => {
+const deleteNoteController = async (req, res) => {
   let { id } = req.params;
-  const note = (await get_note_service(id)) || {
+  const note = (await getNoteService(id)) || {
     message: "Note does not exist",
   };
   if (note.image?.public_id) {
     await deleteImage(note.image.public_id);
   }
-  const note_delete = (await delete_note_service(id)) || {
+  const note_delete = (await deleteNoteService(id)) || {
     message: "Note does not exist",
   };
   res.json(note_delete);
 };
 
 module.exports = {
-  get_note_controller,
-  get_notes_controller,
-  create_notes_controller,
-  update_notes_controller,
-  delete_note_controller,
+  getNoteController,
+  getNotesController,
+  createNotesController,
+  updateNotesController,
+  deleteNoteController,
 };

@@ -2,11 +2,9 @@ require("dotenv").config();
 require("./utils/database");
 
 const express = require("express");
-const routes = require("./routes/routes");
-const notes_routes = require("./routes/notes-routes");
-const user_routes = require("./routes/users-routes");
 const fileUpload = require("express-fileupload");
-const validate_token = require("./middleware/validate-token");
+const validateToken = require("./middleware/validateToken");
+const { router, notesRouter, userRouter } = require("./routes");
 
 const app = express();
 
@@ -19,10 +17,10 @@ app.use(
   })
 );
 
-routes(app);
-app.use(validate_token);
-notes_routes(app);
-user_routes(app);
+app.use("/", router);
+app.use(validateToken);
+app.use("/notes", notesRouter);
+app.use("/user", userRouter);
 
 app.listen(process.env.PORT, () => {
   console.log(`listening at http://localhost:${process.env.PORT}`);

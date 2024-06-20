@@ -1,6 +1,6 @@
 const Notes_model = require("../models/Note");
 
-const get_note_service = async (id) => {
+const getNoteService = async (id) => {
   try {
     const note = await Notes_model.findById(id);
     return note;
@@ -12,7 +12,7 @@ const get_note_service = async (id) => {
   }
 };
 
-const get_notes_service = async (user_id) => {
+const getNotesService = async (user_id) => {
   try {
     const notes = await Notes_model.find({ user_id: user_id });
     return notes;
@@ -23,7 +23,7 @@ const get_notes_service = async (user_id) => {
   }
 };
 
-const create_note_service = async (data) => {
+const createNoteService = async (data) => {
   try {
     const note = Notes_model(data);
     const note_save = await note.save();
@@ -33,7 +33,7 @@ const create_note_service = async (data) => {
   }
 };
 
-const update_note_service = async (id, data) => {
+const updateNoteService = async (id, data) => {
   try {
     const note = Notes_model.findByIdAndUpdate({ _id: id }, data, {
       new: true,
@@ -47,7 +47,7 @@ const update_note_service = async (id, data) => {
   }
 };
 
-const delete_note_service = async (id) => {
+const deleteNoteService = async (id) => {
   try {
     const note = Notes_model.findByIdAndDelete(id);
     return note;
@@ -57,9 +57,9 @@ const delete_note_service = async (id) => {
 };
 
 module.exports = {
-  get_note_service,
-  get_notes_service,
-  create_note_service,
-  update_note_service,
-  delete_note_service,
+  getNoteService,
+  getNotesService,
+  createNoteService,
+  updateNoteService,
+  deleteNoteService,
 };

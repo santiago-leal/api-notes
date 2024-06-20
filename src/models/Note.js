@@ -1,7 +1,7 @@
 const { Schema, model, isValidObjectId, Mongoose } = require("mongoose");
 const User = require("./User");
 
-const note_schema = new Schema(
+const noteSchema = new Schema(
   {
     user_id: {
       type: Schema.Types.ObjectId,
@@ -30,4 +30,4 @@ const note_schema = new Schema(
   }
 );
 
-module.exports = model("Note", note_schema);
+module.exports = model("Note", noteSchema);

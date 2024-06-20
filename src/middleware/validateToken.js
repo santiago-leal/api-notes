@@ -1,8 +1,8 @@
 const jwt = require("jsonwebtoken");
 const express = require("express");
 
-const validate_token = express.Router();
-validate_token.use((req, res, next) => {
+const validateToken = express.Router();
+validateToken.use((req, res, next) => {
   const token = req.headers["token"];
 
   if (token) {
@@ -21,4 +21,4 @@ validate_token.use((req, res, next) => {
   }
 });
 
-module.exports = validate_token;
+module.exports = validateToken;
